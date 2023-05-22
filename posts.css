@@ -1,0 +1,9 @@
+div#posts {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.single-user {
+   width: 50%;
+   height: 50%;
+}
