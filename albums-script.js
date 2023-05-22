@@ -79,3 +79,5 @@ async function getUserAlbums() {
       mainDiv.append(divElement);
    });
 }
+
+// TODO: Elementas turi buti nuoroda

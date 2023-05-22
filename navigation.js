@@ -16,3 +16,5 @@ function createNavigation(name, link) {
 
    return navigation;
 }
+
+// TODO: Pasirinkta nuoroda turi buti paryskinta
