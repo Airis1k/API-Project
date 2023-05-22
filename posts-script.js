@@ -1,66 +1,51 @@
 init();
 
 function init() {
-   // getPostCommentsCount();
-   getUserPosts();
+   getUserPostsAndComments();
 }
 
-async function getPostCommentsCount() {
-   const response = await fetch("https://jsonplaceholder.typicode.com/posts?_embed=comments");
-   const data = await response.json();
-
-   data.forEach(element => {
-      console.log(element.comments.length);
-   });
-}
-
-async function getUserPosts() {
+async function getUserPostsAndComments() {
    // Select main div element
    const mainDiv = document.getElementById("posts");
 
-   // fetch posts API
-   const response = await fetch("https://jsonplaceholder.typicode.com/users?_embed=posts");
+   // fetch users-posts-comments API
+   const response = await fetch("https://jsonplaceholder.typicode.com/posts?_embed=comments&_expand=user");
    const data = await response.json();
 
+   // Array to hold unique user names
+   const userNameArray = [];
    data.forEach(element => {
+      userNameArray.push(element.user.name);
+   });
 
-      // create div for single user
+
+   // Remove duplicate names
+   const uniqueUserNames = [...new Set(userNameArray)];
+   uniqueUserNames.forEach(element => {
+      // Create div elem for every single user
       const divElement = document.createElement("div");
-      divElement.classList.add("single-user");
-      // display user name in h2 elem
+      // Create h2 to display name
       const h2Element = document.createElement("h2");
-      // create navigation to user.html
-      const aNavElement = document.createElement("a");
-      aNavElement.textContent = element.name;
-      aNavElement.href = "/user.html";
-      // Insert a element to h2
-      h2Element.append(aNavElement);
+      h2Element.innerHTML = `<a href="/user.html">${element}</a>`;
       // Create ul element
       const ulElement = document.createElement("ul");
 
-      const userPost = element.posts;
 
+      // Add every post title to linked userId (1 user : 10 posts)
+      data.forEach((elem2) => {
+         if (elem2.user.name === element) {
+            // Create li element
+            const liElement = document.createElement("li");
+            liElement.innerHTML = `<a href="/post.html">${elem2.title}</a> <i>(${elem2.comments.length})</i>`;
 
-      userPost.forEach((element) => {
-
-         // Create li element for single post
-         const liElement = document.createElement("li");
-         // Create a elem
-         const aElement = document.createElement("a");
-         // display post titles
-         aElement.textContent = element.title;
-         aElement.href = "/post.html";
-
-         // Insert a elem to li
-         liElement.append(aElement);
-         // Insert li elem to ul
-         ulElement.append(liElement);
+            // add li elem to ul
+            ulElement.append(liElement);
+         }
       });
 
-
-      // Insert h2 & ul elements to div
+      // Insert h2 & ul elem to div
       divElement.append(h2Element, ulElement);
-      // Insert div element to mainDiv
+      // Insert div elem to mainDiv
       mainDiv.append(divElement);
-   })
+   });
 }
