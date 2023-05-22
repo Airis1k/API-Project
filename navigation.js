@@ -1,16 +1,18 @@
 navigationBetweenWindows();
 
 function navigationBetweenWindows() {
-   // USERS
-   const usersNav = document.createElement("a");
-   usersNav.innerHTML = "<li>USERS</li>";
-   usersNav.href = "/users.html";
+   const home = createNavigation("HOME", "/");
+   const users = createNavigation("USERS", "/users.html");
+   const posts = createNavigation("POSTS", "/posts.html");
+   const albums = createNavigation("ALBUMS", "/albums.html");
 
-   // POSTS
-   const postsNav = document.createElement("a");
-   postsNav.innerHTML = "<li>POSTS</li>";
-   postsNav.href = "/posts.html";
+   document.body.prepend(home, users, posts, albums);
+}
 
-   // prepend to body
-   document.body.prepend(usersNav, postsNav);
+function createNavigation(name, link) {
+   const navigation = document.createElement("a");
+   navigation.innerHTML = `<li>${name}</li>`;
+   navigation.href = link;
+
+   return navigation;
 }
