@@ -14,19 +14,22 @@ async function getUserPostsAndComments() {
 
    // Array to hold unique user names
    const userNameArray = [];
+   const userIdArray = [];
    data.forEach(element => {
       userNameArray.push(element.user.name);
+      userIdArray.push(element.user.id);
    });
 
 
    // Remove duplicate names
    const uniqueUserNames = [...new Set(userNameArray)];
-   uniqueUserNames.forEach(element => {
+   const uniqueUserIds = [...new Set(userIdArray)];
+   uniqueUserNames.forEach((element, index) => {
       // Create div elem for every single user
       const divElement = document.createElement("div");
       // Create h2 to display name
       const h2Element = document.createElement("h2");
-      h2Element.innerHTML = `<a href="/user.html">${element}</a>`;
+      h2Element.innerHTML = `<a href="/user.html?user_id=${uniqueUserIds[index]}">${element}</a>`;
       // Create ul element
       const ulElement = document.createElement("ul");
 

@@ -42,7 +42,7 @@ async function getUserAlbums() {
       const divElement = document.createElement("div");
       // h2 elem to display user names
       const h2Element = document.createElement("h2");
-      h2Element.innerHTML = `<a href="/user.html">${element}</a>`;
+      h2Element.innerHTML = `<a href="/user.html?user_id=${uniqueUserId[index].userId}">${element}</a>`;
 
       // create img elem to display album photo
       /*

@@ -20,7 +20,7 @@ async function getUsers() {
       const aElement = document.createElement("a");
       // Prints user name and posts count
       aElement.innerHTML = `${element.name} - <i>(${element.posts.length})</i>`;
-      aElement.href = "/user.html";
+      aElement.href = `/user.html?user_id=${element.id}`;
 
       // Insert a element to li
       liElement.append(aElement);
