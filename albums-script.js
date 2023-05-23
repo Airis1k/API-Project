@@ -10,7 +10,7 @@ async function getUserAlbums() {
 
    // fetch albums API
    const response = await fetch(
-      "https://jsonplaceholder.typicode.com/albums?_limit=20&_expand=user&_embed=photos"
+      "https://jsonplaceholder.typicode.com/albums?_limit=40&_expand=user&_embed=photos"
    );
    const data = await response.json();
 
@@ -55,8 +55,13 @@ async function getUserAlbums() {
       const imgElement = document.createElement("img");
       const imgIndex = uniqueUserId[index].index;
       const imgLink = data[imgIndex].photos[0].thumbnailUrl;
+      // photo link to bigger picture
+      const photoNav = document.createElement("a");
+      photoNav.href = data[imgIndex].photos[0].url;
+      photoNav.target = "_blank";
       imgElement.src = imgLink;
       imgElement.alt = "color block";
+      photoNav.append(imgElement);
 
       // ul elem
       const ulElement = document.createElement("ul");
@@ -67,7 +72,7 @@ async function getUserAlbums() {
          if (elem2.user.name === element) {
             // li elem for every album title
             const liElement = document.createElement("li");
-            liElement.innerHTML = `${elem2.title} <i>(${elem2.photos.length})</i>`;
+            liElement.innerHTML = `<a href="/album.html">${elem2.title} <i>(${elem2.photos.length})</i></a>`;
    
             // add li elem to ul
             ulElement.append(liElement);
@@ -75,9 +80,7 @@ async function getUserAlbums() {
       });
 
       // add h2 & ul elem to div. Then add div elem to mainDiv
-      divElement.append(h2Element, imgElement, ulElement);
+      divElement.append(h2Element, photoNav, ulElement);
       mainDiv.append(divElement);
    });
 }
-
-// TODO: Elementas turi buti nuoroda
