@@ -12,9 +12,14 @@ async function getUserPosts() {
    // ul elem for post info
    const ulElement = document.createElement("ul");
 
-   const userId = 1;
+   // returns URL parameters
+   const queryParams = window.document.location.search;
+   const urlParams = new URLSearchParams(queryParams);
+   const userId = urlParams.get("post_id");
    // fetch posts api
-   const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${userId}/?_embed=comments&_expand=user`);
+   const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${userId}/?_embed=comments&_expand=user`
+   );
    const data = await response.json();
 
    // h2 elem to display post title
@@ -22,7 +27,7 @@ async function getUserPosts() {
    h2Element.textContent = data.title;
    // post author li elem
    const postAuthor = document.createElement("li");
-   postAuthor.innerHTML = `<b>Author:</b> ${data.user.name}`;
+   postAuthor.innerHTML = `<b>Author:</b> <a href="user.html?user_id=${data.user.id}">${data.user.name}</a>`;
    // post content li elem
    const postContent = document.createElement("li");
    postContent.innerHTML = `<p><b>Post Content:</b> ${data.body}</p>`;
@@ -30,8 +35,7 @@ async function getUserPosts() {
    const postComments = document.createElement("li");
    postComments.innerHTML = `<b>Comments: </b>`;
    const commentsUlElement = document.createElement("ul");
-   data.comments.forEach(element => {
-
+   data.comments.forEach((element) => {
       // comment author
       const commentEmail = document.createElement("li");
       commentEmail.innerHTML = `<b><i>Email:</i></b> ${element.email}`;
@@ -43,10 +47,9 @@ async function getUserPosts() {
       commentContent.innerHTML = `<b><i>Content:</i></b> ${element.body}`;
 
       commentsUlElement.append(commentEmail, commentTitle, commentContent);
-      console.log(element)
    });
 
-
+   // Appends (insertion)
    postComments.append(commentsUlElement);
    ulElement.append(postAuthor, postContent, postComments);
    divElement.append(h2Element, ulElement);

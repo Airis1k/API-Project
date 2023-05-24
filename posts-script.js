@@ -39,7 +39,7 @@ async function getUserPostsAndComments() {
          if (elem2.user.name === element) {
             // Create li element
             const liElement = document.createElement("li");
-            liElement.innerHTML = `<a href="/post.html">${elem2.title}</a> <i>(${elem2.comments.length})</i>`;
+            liElement.innerHTML = `<a href="/post.html?post_id=${elem2.id}">${elem2.title}</a> <i>(${elem2.comments.length})</i>`;
 
             // add li elem to ul
             ulElement.append(liElement);
