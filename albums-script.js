@@ -72,7 +72,7 @@ async function getUserAlbums() {
          if (elem2.user.name === element) {
             // li elem for every album title
             const liElement = document.createElement("li");
-            liElement.innerHTML = `<a href="/album.html">${elem2.title} <i>(${elem2.photos.length})</i></a>`;
+            liElement.innerHTML = `<a href="/album.html?album_id=${elem2.id}">${elem2.title} <i>(${elem2.photos.length})</i></a>`;
    
             // add li elem to ul
             ulElement.append(liElement);
