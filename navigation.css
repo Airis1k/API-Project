@@ -16,3 +16,16 @@ a.active-link {
    color: #5faff3;
    text-decoration: underline;
 }
+
+nav.navigation-bar {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+}
+
+form.search-form {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   gap: 15px;
+}

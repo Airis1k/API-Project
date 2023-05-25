@@ -4,6 +4,8 @@ function navigationBetweenWindows() {
    const headerElement = document.createElement("header");
    const navElement = document.createElement("nav");
    const ulElement = document.createElement("ul");
+
+   navElement.classList.add("navigation-bar");
    ulElement.classList.add("window-elements");
 
    const homeObj = {"name":"HOME","link":"/"};
@@ -15,16 +17,34 @@ function navigationBetweenWindows() {
    const users = createNavigation(usersObj.name, usersObj.link);
    const posts = createNavigation(postsObj.name, postsObj.link);
    const albums = createNavigation(albumsObj.name, albumsObj.link);
+
    
-   
+   // Search form
+   const formElement = document.createElement("form");
+   formElement.classList.add("search-form");
+   formElement.action = "/search.html";
+   // Input:text elem
+   const inputElement = document.createElement("input");
+   inputElement.type = "text";
+   inputElement.id = "query";
+   inputElement.name = "search_input";
+   // Submit elem
+   const submitElement = document.createElement("input");
+   submitElement.classList.add("submit-btn");
+   submitElement.type = "submit";
+
+
+   formElement.append(inputElement, submitElement);
    headerElement.append(navElement);
-   navElement.append(ulElement);
+   navElement.append(ulElement, formElement);
    ulElement.append(home, users, posts, albums);
    document.body.prepend(headerElement);
 
    // Active window
    const windowLinks = [homeObj, usersObj, postsObj, albumsObj];
    activeWindow(windowLinks);
+
+
 }
 
 function activeWindow(windowNames) {
@@ -48,4 +68,10 @@ function createNavigation(name, link) {
    navigation.innerHTML = `<a href="${link}" class="window-link">${name}</a>`;
 
    return navigation;
+}
+
+function searchForContent(form) {
+   form.addEventListener("submit", function(event) {
+      form.reset();
+   });
 }
