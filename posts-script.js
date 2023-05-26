@@ -1,3 +1,6 @@
+import { firstLetterUpperCase } from "./functions.js";
+
+
 init();
 
 function init() {
@@ -37,9 +40,11 @@ async function getUserPostsAndComments() {
       // Add every post title to linked userId (1 user : 10 posts)
       data.forEach((elem2) => {
          if (elem2.user.name === element) {
+
+            const titleName = firstLetterUpperCase(elem2.title);
             // Create li element
             const liElement = document.createElement("li");
-            liElement.innerHTML = `<a href="/post.html?post_id=${elem2.id}">${elem2.title}</a> <i>(${elem2.comments.length})</i>`;
+            liElement.innerHTML = `<a href="/post.html?post_id=${elem2.id}">${titleName}</a> <i>(${elem2.comments.length})</i>`;
 
             // add li elem to ul
             ulElement.append(liElement);

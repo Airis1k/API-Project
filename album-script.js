@@ -1,3 +1,5 @@
+import { firstLetterUpperCase } from "./functions.js";
+
 init();
 
 function init() {
@@ -26,7 +28,7 @@ async function getUserAllAlbums() {
 
    // h2 elem to display album title
    const h2Element = document.createElement("h2");
-   h2Element.textContent = data.title;
+   h2Element.textContent = firstLetterUpperCase(data.title);
    // div elem to display album author
    const albumAuthor = document.createElement("div");
    albumAuthor.classList.add("album-author");

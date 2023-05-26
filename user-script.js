@@ -1,3 +1,5 @@
+import { firstLetterUpperCase } from "./functions.js";
+
 init();
 
 function init() {
@@ -79,11 +81,22 @@ function createPostOrAlbum(userData, className, header, link) {
    // ul elem for user post / album titles
    const ulElement = document.createElement("ul");
 
-   userPostOrAlbum = userData;
+   const userPostOrAlbum = userData;
    userPostOrAlbum.forEach((element) => {
+
+      // Check if its post or album link
+      // if its post add 'post_id'
+      // if its album add 'album_id'
+      let linkQuery = "";
+      if (link === "/post.html") {
+         linkQuery = "?post_id=" + element.id;
+      } else if (link === "/album.html") {
+         linkQuery = "?album_id=" + element.id;
+      }
       // li elem for every single title
       const liElement = document.createElement("li");
-      liElement.innerHTML = `<a href="${link}">${element.title}</a>`;
+      const titleName = firstLetterUpperCase(element.title);
+      liElement.innerHTML = `<a href="${link+linkQuery}">${titleName}</a>`;
 
       ulElement.append(liElement);
    });

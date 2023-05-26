@@ -1,3 +1,5 @@
+import { firstLetterUpperCase } from "./functions.js";
+
 init();
 
 function init() {
@@ -24,13 +26,14 @@ async function getUserPosts() {
 
    // h2 elem to display post title
    const h2Element = document.createElement("h2");
-   h2Element.textContent = data.title;
+   h2Element.textContent = firstLetterUpperCase(data.title);
    // post author li elem
    const postAuthor = document.createElement("li");
    postAuthor.innerHTML = `<b>Author:</b> <a href="user.html?user_id=${data.user.id}">${data.user.name}</a>`;
    // post content li elem
    const postContent = document.createElement("li");
-   postContent.innerHTML = `<p><b>Post Content:</b> ${data.body}</p>`;
+   const textContent = firstLetterUpperCase(data.body);
+   postContent.innerHTML = `<p><b>Post Content:</b> ${textContent}</p>`;
    // post comments
    const postComments = document.createElement("li");
    postComments.innerHTML = `<b>Comments: </b>`;
@@ -41,10 +44,12 @@ async function getUserPosts() {
       commentEmail.innerHTML = `<b><i>Email:</i></b> ${element.email}`;
       // comment title
       const commentTitle = document.createElement("li");
-      commentTitle.innerHTML = `<b><i>Title:</i></b> ${element.name}`;
+      const textTitle = firstLetterUpperCase(element.name);
+      commentTitle.innerHTML = `<b><i>Title:</i></b> ${textTitle}`;
       // comment content
       const commentContent = document.createElement("li");
-      commentContent.innerHTML = `<b><i>Content:</i></b> ${element.body}`;
+      const textComment = firstLetterUpperCase(element.body);
+      commentContent.innerHTML = `<b><i>Content:</i></b> ${textComment}`;
 
       commentsUlElement.append(commentEmail, commentTitle, commentContent);
    });
